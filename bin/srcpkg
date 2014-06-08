@@ -1,0 +1,26 @@
+#!/usr/bin/env ruby
+# encoding: utf-8
+
+require 'srcpkg'
+
+if ARGV.length > 0
+	srcpkg = Srcpkg.new;
+	actual_command = ARGV.shift
+	command = actual_command.gsub ':', '_'
+	if srcpkg.respond_to? command
+		srcpkg.send command, ARGV
+	else # ! srcpkg.respond_to? command
+		puts "  err: unknown command #{actual_command}"
+	end#if
+else # ARGV.length == 0
+
+puts
+puts <<eos
+ Commands
+ ------------------------------------------------------------------------------
+   srcpkg version                                  - current version
+   srcpkg install                                  - install packages at location
+
+eos
+
+end#if
